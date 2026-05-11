@@ -1,1 +1,419 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Mamá — Día de las Madres ❤️</title>
+  <link rel="stylesheet" href="mama-styles.css" />
+</head>
+<body>
+
+<!-- ══ FONDO NEBULOSA ══ -->
+<div class="bg-nebula" aria-hidden="true">
+  <div class="nebula-orb"></div>
+  <div class="nebula-orb"></div>
+  <div class="nebula-orb"></div>
+</div>
+
+<!-- ══ PARTÍCULAS ══ -->
+<div class="particles" id="particles" aria-hidden="true"></div>
+
+<div class="page-wrapper">
+
+  <!-- ══ HERO ══ -->
+  <header class="hero">
+    <p class="hero-eyebrow">Día de las Madres · 2026</p>
+    <h1 class="hero-title">Para ti, Mamá</h1>
+    <p class="hero-sub">Mi mayor orgullo y mi amor eterno</p>
+    <div class="crown-divider">♛</div>
+  </header>
+
+  <!-- ══ SOBRE ══ -->
+  <main class="scene" role="main">
+    <div class="envelope-wrapper" id="envelopeWrapper"
+         role="button" tabindex="0"
+         aria-label="Haz clic para abrir la carta de mamá">
+
+      <div class="letter-peek" id="letterPeek" aria-hidden="true"></div>
+
+      <div class="envelope">
+        <div class="env-body"></div>
+        <div class="env-bottom"></div>
+        <div class="env-left"></div>
+        <div class="env-right"></div>
+        <div class="env-flap" id="envFlap"></div>
+        <div class="env-seal" aria-hidden="true">💝</div>
+        <div class="env-stamp" aria-hidden="true">👑</div>
+      </div>
+
+      <span class="hint-text" aria-hidden="true">✦ Toca para abrir ✦</span>
+    </div>
+  </main>
+
+  <!-- ══ MODAL CARTA ══ -->
+  <div class="letter-modal" id="letterModal" role="dialog"
+       aria-modal="true" aria-label="Carta para Mamá">
+
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <article class="letter-card">
+      <!-- Esquinas decorativas -->
+      <div class="corner corner-tl"></div>
+      <div class="corner corner-tr"></div>
+      <div class="corner corner-bl"></div>
+      <div class="corner corner-br"></div>
+
+      <button class="close-btn" id="closeBtn" aria-label="Cerrar carta">✕</button>
+
+      <header class="letter-header">
+        <span class="letter-date">10 de mayo de 2026</span>
+        <h2 class="letter-title">Para ti, Mamita</h2>
+        <p class="letter-tagline">Con todo el amor de tu hijo</p>
+        <div class="letter-sep">♥ ♥ ♥</div>
+      </header>
+
+      <div class="letter-body">
+        <p>Mamita, hoy quiero decirte lo orgulloso que me siento de ti y de la mujer tan increíble que eres. Siempre he admirado que todo lo que te propones lo consigues, porque eres una mujer <span class="highlight">fuerte, inteligente, dedicada y luchadora</span>. Todo lo que has logrado ha sido por tu esfuerzo, sin ayuda de nadie y con un objetivo claro: sacarnos adelante a nosotros.</p>
+
+        <p>Nunca voy a olvidar todo lo que hiciste por nosotros cuando éramos pequeños, que aunque las cosas fueran difíciles, siempre nos dabas todo lo que podías y nunca te rendiste. Admiro profundamente tu fuerza, porque a pesar de todo seguiste luchando y demostrándonos que <span class="highlight">nada en esta vida es imposible</span>, que los límites solo existen si uno los pone. Ese valor que me inculcaste me ha marcado para siempre.</p>
+
+        <p>También quiero agradecerte porque incluso en mis peores momentos jamás me soltaste. Cuando estuve encerrado y todo parecía perdido, hiciste hasta lo imposible por sacarme de ahí. Eso me demostró una vez más <span class="highlight">el inmenso amor que tienes por mí</span> y que nunca me has abandonado, incluso cuando he fallado.</p>
+
+        <p>Gracias por nunca rendirte, por enseñarme valores, por mostrarme con tu ejemplo que el que quiere, puede, y que no hay obstáculo que no se pueda superar. Eres mi ejemplo a seguir y <span class="highlight">una de las personas que más admiro en esta vida</span>.</p>
+
+        <p>Te amo mamita hermosa ❤️, eres mi adoración y siempre vas a ser mi mayor orgullo.</p>
+      </div>
+
+      <footer class="letter-signature">
+        <span class="sign-with">Con todo mi amor,</span>
+        <span class="sign-name">Tu hijo</span>
+        <span class="sign-hearts">❤ ❤ ❤</span>
+      </footer>
+    </article>
+  </div>
+
+  <!-- ══ DIVISOR ══ -->
+  <div class="section-divider">
+    <div class="section-line"></div>
+    <p>Y porque las palabras no alcanzan…</p>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- ══ ESFERA ══ -->
+  <section class="globe-section" aria-label="Esfera de amor">
+    <h2 class="globe-title">Todo lo que siento por ti</h2>
+
+    <div class="globe-container">
+      <div class="globe-glow" aria-hidden="true"></div>
+      <canvas id="globeCanvas" aria-label="Esfera giratoria con mensajes de amor"></canvas>
+    </div>
+
+    <p class="globe-subtitle">Arrastra para girar · Cada palabra, un sentimiento real</p>
+  </section>
+
+  <footer class="page-footer">
+    Feliz Día de las Madres &nbsp;·&nbsp; Siempre tuyo, con amor eterno ❤
+  </footer>
+
+</div><!-- /page-wrapper -->
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+/* ─── Partículas flotantes ─── */
+(function() {
+  const container = document.getElementById('particles');
+  const colors = ['#d4a843','#c2556e','#f0cc7a','#e8889a','#8b2252','#f5d0da'];
+  for (let i = 0; i < 55; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 3 + 1;
+    const left = Math.random() * 100;
+    const dur  = Math.random() * 20 + 12;
+    const del  = Math.random() * 20;
+    p.style.cssText = `
+      left: ${left}vw;
+      width: ${size}px;
+      height: ${size}px;
+      background: ${colors[Math.floor(Math.random()*colors.length)]};
+      animation-duration: ${dur}s;
+      animation-delay: ${del}s;
+      box-shadow: 0 0 ${size*2}px currentColor;
+    `;
+    container.appendChild(p);
+  }
+})();
+
+/* ─── Sobre / carta ─── */
+const wrapper = document.getElementById('envelopeWrapper');
+const modal   = document.getElementById('letterModal');
+const closeBtn = document.getElementById('closeBtn');
+const overlay  = document.getElementById('modalOverlay');
+
+function openLetter() {
+  if (wrapper.classList.contains('opened')) return;
+  wrapper.classList.add('opening');
+  setTimeout(() => {
+    wrapper.classList.add('opened');
+    modal.classList.add('visible');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }, 950);
+}
+
+function closeLetter() {
+  modal.classList.remove('visible');
+  document.body.style.overflow = '';
+}
+
+wrapper.addEventListener('click', openLetter);
+wrapper.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLetter(); }
+});
+closeBtn.addEventListener('click', closeLetter);
+overlay.addEventListener('click', closeLetter);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLetter(); });
+
+
+/* ══════════════════════════════════════════
+   ESFERA 3D — Canvas WebGL-style (Canvas 2D)
+══════════════════════════════════════════ */
+(function() {
+  const canvas = document.getElementById('globeCanvas');
+  const ctx    = canvas.getContext('2d');
+
+  const MESSAGES = [
+    'Te amo', 'Te quiero', 'Mi todo', 'Mi orgullo',
+    'Gracias mamá', 'Eres mi fuerza', 'Te adoro',
+    'Siempre contigo', 'Mi heroína', 'Amor eterno',
+    'Mamita ❤', 'Mi luz', 'Nunca te suelto',
+    'Mi ejemplo', 'Lo más bello', 'Tú me formaste',
+    'Eres única', 'Mi corazón', 'Infinitamente',
+    'Feliz Día', 'Orgulloso de ti', 'Mi refugio',
+    'Gracias por todo', 'Mi vida', 'Fuerza pura',
+    'Eres todo', 'Con todo mi amor', '❤️',
+    'Mi mamita', 'Siempre tuyo',
+  ];
+
+  const COLORS = [
+    '#d4a843','#f0cc7a','#c2556e','#e8889a',
+    '#f5d0da','#b87333','#e8a0b0','#ffd700',
+  ];
+
+  let W, H, R, cx, cy;
+
+  function resize() {
+    const container = canvas.parentElement;
+    const size = Math.min(container.clientWidth, container.clientHeight, 340);
+    canvas.width  = size * window.devicePixelRatio;
+    canvas.height = size * window.devicePixelRatio;
+    canvas.style.width  = size + 'px';
+    canvas.style.height = size + 'px';
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    W = size; H = size;
+    R = size * 0.42;
+    cx = W / 2; cy = H / 2;
+    buildTags();
+  }
+
+  // Posiciones en esfera (distribución Fibonacci)
+  let tags = [];
+
+  function buildTags() {
+    tags = [];
+    const n = MESSAGES.length;
+    const golden = Math.PI * (3 - Math.sqrt(5));
+    for (let i = 0; i < n; i++) {
+      const y   = 1 - (i / (n - 1)) * 2;
+      const rad = Math.sqrt(1 - y * y);
+      const theta = golden * i;
+      tags.push({
+        x: Math.cos(theta) * rad,
+        y: y,
+        z: Math.sin(theta) * rad,
+        text: MESSAGES[i],
+        color: COLORS[i % COLORS.length],
+        baseSize: 10 + Math.random() * 5,
+      });
+    }
+  }
+
+  // Rotación
+  let rotX = 0.3, rotY = 0;
+  let velX = 0.0003, velY = 0.0006;
+  let dragging = false;
+  let lastMx = 0, lastMy = 0;
+
+  function rotatePoint(pt, rx, ry) {
+    // rotate Y
+    let x1 = pt.x * Math.cos(ry) - pt.z * Math.sin(ry);
+    let z1 = pt.x * Math.sin(ry) + pt.z * Math.cos(ry);
+    // rotate X
+    let y1 = pt.y * Math.cos(rx) - z1 * Math.sin(rx);
+    let z2 = pt.y * Math.sin(rx) + z1 * Math.cos(rx);
+    return { x: x1, y: y1, z: z2 };
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Esfera sólida fondo
+    const sphereGrad = ctx.createRadialGradient(cx - R*0.3, cy - R*0.3, R*0.05, cx, cy, R);
+    sphereGrad.addColorStop(0,   'rgba(80,30,100,0.55)');
+    sphereGrad.addColorStop(0.5, 'rgba(30,15,50,0.70)');
+    sphereGrad.addColorStop(1,   'rgba(5,2,15,0.85)');
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI*2);
+    ctx.fillStyle = sphereGrad;
+    ctx.fill();
+
+    // Borde dorado
+    const borderGrad = ctx.createLinearGradient(cx-R, cy-R, cx+R, cy+R);
+    borderGrad.addColorStop(0,   'rgba(212,168,67,0.5)');
+    borderGrad.addColorStop(0.5, 'rgba(194,85,110,0.4)');
+    borderGrad.addColorStop(1,   'rgba(212,168,67,0.5)');
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI*2);
+    ctx.strokeStyle = borderGrad;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Meridiano sutil
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI*2);
+    ctx.save();
+    ctx.clip();
+    const linGrad = ctx.createLinearGradient(cx - R, cy, cx + R, cy);
+    linGrad.addColorStop(0, 'transparent');
+    linGrad.addColorStop(0.5, 'rgba(212,168,67,0.04)');
+    linGrad.addColorStop(1, 'transparent');
+    ctx.strokeStyle = linGrad;
+    ctx.lineWidth = 0.5;
+    for (let i = 0; i < 6; i++) {
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, R * Math.sin(i * Math.PI/6), R, i * Math.PI/6, 0, Math.PI*2);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // Brillo especular
+    const specGrad = ctx.createRadialGradient(cx - R*0.38, cy - R*0.38, 0, cx - R*0.2, cy - R*0.2, R*0.55);
+    specGrad.addColorStop(0,   'rgba(255,255,255,0.14)');
+    specGrad.addColorStop(0.5, 'rgba(255,255,255,0.04)');
+    specGrad.addColorStop(1,   'transparent');
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI*2);
+    ctx.fillStyle = specGrad;
+    ctx.fill();
+
+    // Proyectar y ordenar tags por z
+    const projected = tags.map(tag => {
+      const p = rotatePoint(tag, rotX, rotY);
+      const scale = (p.z + 1.5) / 2.5;  // perspectiva
+      return {
+        ...tag,
+        px: cx + p.x * R,
+        py: cy - p.y * R,
+        pz: p.z,
+        scale,
+        visible: p.z > -0.1,
+      };
+    });
+    projected.sort((a, b) => a.pz - b.pz);
+
+    // Dibujar textos
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, R - 1, 0, Math.PI*2);
+    ctx.clip();
+
+    projected.forEach(tag => {
+      if (tag.pz < -0.6) return;
+      const alpha = tag.visible ? Math.min(1, (tag.pz + 0.1) / 0.8) : 0;
+      if (alpha <= 0) return;
+
+      const fontSize = Math.round(tag.baseSize * tag.scale);
+      ctx.font = `${fontSize}px 'EB Garamond', serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      // Sombra suave
+      ctx.shadowColor = 'rgba(0,0,0,0.8)';
+      ctx.shadowBlur  = 4;
+
+      // Color con opacidad según profundidad
+      const hex = tag.color;
+      const r = parseInt(hex.slice(1,3),16);
+      const g = parseInt(hex.slice(3,5),16);
+      const b = parseInt(hex.slice(5,7),16);
+      ctx.fillStyle = `rgba(${r},${g},${b},${alpha.toFixed(2)})`;
+      ctx.fillText(tag.text, tag.px, tag.py);
+      ctx.shadowBlur = 0;
+    });
+
+    ctx.restore();
+
+    // Reflejo inferior
+    const reflGrad = ctx.createRadialGradient(cx, cy + R + 10, 2, cx, cy + R + 10, R * 0.5);
+    reflGrad.addColorStop(0,   'rgba(194,85,110,0.12)');
+    reflGrad.addColorStop(1,   'transparent');
+    ctx.beginPath();
+    ctx.ellipse(cx, cy + R + 14, R * 0.42, R * 0.08, 0, 0, Math.PI*2);
+    ctx.fillStyle = reflGrad;
+    ctx.fill();
+  }
+
+  let lastTime = 0;
+  function animate(ts) {
+    const dt = Math.min((ts - lastTime) / 16.7, 3);
+    lastTime = ts;
+    if (!dragging) {
+      rotY += velY * dt;
+      rotX += velX * dt;
+      rotX = Math.max(-Math.PI/2.5, Math.min(Math.PI/2.5, rotX));
+    }
+    draw();
+    requestAnimationFrame(animate);
+  }
+
+  // ─── Interacción mouse/touch ───
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const src  = e.touches ? e.touches[0] : e;
+    return { x: src.clientX - rect.left, y: src.clientY - rect.top };
+  }
+
+  canvas.addEventListener('mousedown',  e => { dragging = true; const p = getPos(e); lastMx=p.x; lastMy=p.y; });
+  canvas.addEventListener('touchstart', e => { dragging = true; const p = getPos(e); lastMx=p.x; lastMy=p.y; e.preventDefault(); }, { passive:false });
+
+  window.addEventListener('mousemove',  e => {
+    if (!dragging) return;
+    const p = getPos(e);
+    rotY += (p.x - lastMx) * 0.008;
+    rotX += (p.y - lastMy) * 0.008;
+    rotX = Math.max(-Math.PI/2.2, Math.min(Math.PI/2.2, rotX));
+    lastMx = p.x; lastMy = p.y;
+  });
+  window.addEventListener('touchmove',  e => {
+    if (!dragging) return;
+    const p = getPos(e);
+    rotY += (p.x - lastMx) * 0.010;
+    rotX += (p.y - lastMy) * 0.010;
+    rotX = Math.max(-Math.PI/2.2, Math.min(Math.PI/2.2, rotX));
+    lastMx = p.x; lastMy = p.y;
+    e.preventDefault();
+  }, { passive:false });
+  window.addEventListener('mouseup',  () => { dragging = false; });
+  window.addEventListener('touchend', () => { dragging = false; });
+
+  window.addEventListener('resize', () => { resize(); });
+
+  resize();
+  requestAnimationFrame(animate);
+})();
+</script>
+</body>
+</html>
+  
