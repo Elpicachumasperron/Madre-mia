@@ -1,0 +1,705 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,500&display=swap');
+
+/* ══════════════════════════════════════════
+   VARIABLES & RESET
+══════════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --night:       #0b0810;
+  --deep:        #130f1e;
+  --velvet:      #1c1530;
+  --gold:        #d4a843;
+  --gold-light:  #f0cc7a;
+  --gold-dim:    #7a5c1e;
+  --rose:        #c2556e;
+  --rose-light:  #e8889a;
+  --blush:       #f5d0da;
+  --cream:       #fdf0e8;
+  --envelope-bg: #1e1628;
+  --env-flap:    #2a1f3d;
+  --env-body:    #231a35;
+  --glow-rose:   rgba(194,85,110,0.35);
+  --glow-gold:   rgba(212,168,67,0.3);
+  --text-main:   #f5ead8;
+  --shadow-deep: rgba(0,0,0,0.7);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'EB Garamond', Georgia, serif;
+  background: var(--night);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ══════════════════════════════════════════
+   FONDO — NEBULOSA ANIMADA
+══════════════════════════════════════════ */
+.bg-nebula {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.nebula-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.18;
+  animation: drift 18s ease-in-out infinite alternate;
+}
+
+.nebula-orb:nth-child(1) {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, #8b2252, transparent);
+  top: -150px; left: -100px;
+  animation-duration: 22s;
+}
+.nebula-orb:nth-child(2) {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, #3d2070, transparent);
+  bottom: -100px; right: -80px;
+  animation-duration: 16s; animation-delay: -8s;
+}
+.nebula-orb:nth-child(3) {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, #8b6014, transparent);
+  top: 40%; left: 55%;
+  animation-duration: 20s; animation-delay: -4s;
+}
+
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(40px, 30px) scale(1.08); }
+}
+
+/* ══════════════════════════════════════════
+   PARTÍCULAS FLOTANTES (estrellas/chispas)
+══════════════════════════════════════════ */
+.particles {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  animation: sparkle linear infinite;
+  opacity: 0;
+}
+
+@keyframes sparkle {
+  0%   { transform: translateY(0) scale(0.5); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 0.6; }
+  100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+}
+
+/* ══════════════════════════════════════════
+   LAYOUT PRINCIPAL
+══════════════════════════════════════════ */
+.page-wrapper {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px 100px;
+  gap: 0;
+}
+
+/* ══════════════════════════════════════════
+   HERO HEADER
+══════════════════════════════════════════ */
+.hero {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: fadeUp 1.2s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(28px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+.hero-eyebrow {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.8;
+  margin-bottom: 14px;
+}
+
+.hero-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2rem, 6vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.1;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, var(--rose-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(0 0 30px rgba(212,168,67,0.3));
+}
+
+.hero-sub {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  color: var(--rose-light);
+  margin-top: 10px;
+  opacity: 0.85;
+}
+
+.crown-divider {
+  margin: 22px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: var(--gold-dim);
+  font-size: 1.2rem;
+  letter-spacing: 0.4em;
+}
+.crown-divider::before,
+.crown-divider::after {
+  content: '';
+  width: 90px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold-dim));
+}
+.crown-divider::after {
+  background: linear-gradient(to left, transparent, var(--gold-dim));
+}
+
+/* ══════════════════════════════════════════
+   SOBRE / ENVELOPE
+══════════════════════════════════════════ */
+.scene {
+  perspective: 1600px;
+  margin-bottom: 80px;
+}
+
+.envelope-wrapper {
+  position: relative;
+  width: 380px;
+  height: 270px;
+  cursor: pointer;
+  transition: transform 0.35s ease, filter 0.35s ease;
+  animation: fadeUp 1.4s 0.3s ease both;
+}
+
+.envelope-wrapper:hover:not(.opened) {
+  transform: translateY(-8px) scale(1.02);
+  filter: drop-shadow(0 0 24px rgba(212,168,67,0.35));
+}
+
+.envelope-wrapper:hover:not(.opened) .hint-text { opacity: 1; }
+
+/* Cuerpo del sobre */
+.env-body {
+  position: absolute;
+  inset: 0;
+  background: var(--env-body);
+  border-radius: 4px 4px 10px 10px;
+  box-shadow:
+    0 0 0 1px rgba(212,168,67,0.15),
+    0 12px 50px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(212,168,67,0.1);
+  overflow: hidden;
+}
+
+.env-body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(212,168,67,0.03) 0, rgba(212,168,67,0.03) 1px,
+    transparent 1px, transparent 14px
+  );
+}
+
+/* Triángulos laterales */
+.env-left {
+  position: absolute;
+  bottom: 0; left: 0;
+  border: solid transparent;
+  border-width: 135px 0 135px 190px;
+  border-left-color: rgba(194,85,110,0.12);
+  z-index: 3;
+}
+.env-right {
+  position: absolute;
+  bottom: 0; right: 0;
+  border: solid transparent;
+  border-width: 135px 190px 135px 0;
+  border-right-color: rgba(61,32,112,0.18);
+  z-index: 3;
+}
+/* Triángulo inferior */
+.env-bottom {
+  position: absolute;
+  bottom: 0; left: 0;
+  border: solid transparent;
+  border-width: 0 0 152px 380px;
+  border-bottom-color: rgba(42,31,61,0.9);
+  z-index: 2;
+}
+
+/* Solapa */
+.env-flap {
+  position: absolute;
+  top: 0; left: 0;
+  border: solid transparent;
+  border-width: 152px 190px 0 190px;
+  border-top-color: var(--env-flap);
+  z-index: 10;
+  transform-origin: top center;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.5));
+}
+
+/* Sello dorado */
+.env-seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 62px; height: 62px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--gold) 0%, var(--gold-dim) 100%);
+  box-shadow: 0 0 20px rgba(212,168,67,0.5), 0 0 0 3px rgba(212,168,67,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  z-index: 6;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.envelope-wrapper:hover:not(.opened) .env-seal {
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 0 32px rgba(212,168,67,0.7), 0 0 0 4px rgba(212,168,67,0.3);
+}
+
+/* Sello correo */
+.env-stamp {
+  position: absolute;
+  top: 16px; right: 18px;
+  width: 50px; height: 62px;
+  background: var(--velvet);
+  border: 1px solid var(--gold-dim);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  gap: 3px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+  background-image:
+    linear-gradient(to right, transparent 4px, rgba(212,168,67,0.12) 4px, rgba(212,168,67,0.12) 5px, transparent 5px),
+    linear-gradient(to bottom, transparent 4px, rgba(212,168,67,0.12) 4px, rgba(212,168,67,0.12) 5px, transparent 5px);
+  background-size: 9px 100%, 100% 9px;
+}
+
+.env-stamp::after {
+  content: 'MAMÁ';
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.32rem;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  display: block;
+}
+
+/* Carta asomando */
+.letter-peek {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  width: 310px; height: 250px;
+  background: linear-gradient(160deg, #1e1728, #160e24);
+  border: 1px solid rgba(212,168,67,0.15);
+  border-radius: 3px;
+  z-index: 1;
+  opacity: 0;
+  transition: none;
+}
+
+@keyframes peekOut {
+  to { opacity: 1; transform: translateX(-50%) translateY(-22px); }
+}
+
+.hint-text {
+  position: absolute;
+  bottom: -42px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.2rem;
+  color: var(--gold);
+  white-space: nowrap;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  text-shadow: 0 0 10px rgba(212,168,67,0.5);
+}
+
+/* Estados de apertura */
+.envelope-wrapper.opening .env-flap { transform: rotateX(-178deg); }
+.envelope-wrapper.opening .letter-peek {
+  animation: peekOut 0.5s 0.35s ease forwards;
+}
+.envelope-wrapper.opened .env-flap { transform: rotateX(-178deg); }
+.envelope-wrapper.opened .env-seal { opacity: 0; transition: opacity 0.3s; }
+
+/* ══════════════════════════════════════════
+   MODAL — CARTA COMPLETA
+══════════════════════════════════════════ */
+.letter-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.letter-modal.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5,3,12,0.82);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+}
+
+.letter-card {
+  position: relative;
+  z-index: 2;
+  width: min(620px, 94vw);
+  max-height: 88vh;
+  overflow-y: auto;
+  background: linear-gradient(160deg, #160e24 0%, #1a1230 50%, #0d0818 100%);
+  border: 1px solid rgba(212,168,67,0.2);
+  border-radius: 8px;
+  padding: clamp(32px, 5vw, 56px) clamp(26px, 5vw, 52px);
+  box-shadow:
+    0 0 0 1px rgba(212,168,67,0.08),
+    0 0 60px rgba(194,85,110,0.2),
+    0 0 120px rgba(212,168,67,0.1),
+    0 30px 80px rgba(0,0,0,0.7);
+  transform: scale(0.82) translateY(40px);
+  transition: transform 0.55s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.letter-modal.visible .letter-card { transform: scale(1) translateY(0); }
+
+/* Esquinas decorativas */
+.letter-card::before {
+  content: '';
+  position: absolute;
+  top: 12px; left: 12px; right: 12px; bottom: 12px;
+  border: 1px solid rgba(212,168,67,0.08);
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+.corner {
+  position: absolute;
+  width: 24px; height: 24px;
+  border-color: rgba(212,168,67,0.4);
+  border-style: solid;
+}
+.corner-tl { top:8px; left:8px;   border-width: 2px 0 0 2px; border-radius: 3px 0 0 0; }
+.corner-tr { top:8px; right:8px;  border-width: 2px 2px 0 0; border-radius: 0 3px 0 0; }
+.corner-bl { bottom:8px; left:8px;  border-width: 0 0 2px 2px; border-radius: 0 0 0 3px; }
+.corner-br { bottom:8px; right:8px; border-width: 0 2px 2px 0; border-radius: 0 0 3px 0; }
+
+/* Header de carta */
+.letter-header {
+  text-align: center;
+  margin-bottom: 28px;
+  padding-top: 10px;
+}
+
+.letter-date {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 0.82rem;
+  letter-spacing: 0.25em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.letter-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.4rem, 7vw, 3.8rem);
+  background: linear-gradient(135deg, var(--gold-light), var(--rose-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 18px rgba(212,168,67,0.3));
+  line-height: 1.1;
+}
+
+.letter-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: rgba(245,234,216,0.45);
+  margin-top: 6px;
+  letter-spacing: 0.1em;
+}
+
+.letter-sep {
+  margin: 18px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  letter-spacing: 0.5em;
+  color: rgba(212,168,67,0.3);
+}
+.letter-sep::before,
+.letter-sep::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(212,168,67,0.25), transparent);
+}
+
+/* Cuerpo */
+.letter-body {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(1.08rem, 2.5vw, 1.22rem);
+  line-height: 2;
+  color: var(--text-main);
+  position: relative;
+}
+
+.letter-body p {
+  margin-bottom: 22px;
+  text-indent: 2em;
+  text-align: justify;
+}
+
+.letter-body p:first-child::first-letter {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 3.4em;
+  float: left;
+  line-height: 0.78;
+  margin-right: 8px;
+  margin-top: 6px;
+  background: linear-gradient(135deg, var(--gold-light), var(--rose));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 10px rgba(212,168,67,0.4));
+}
+
+.highlight {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+/* Firma */
+.letter-signature {
+  margin-top: 30px;
+  text-align: right;
+  border-top: 1px solid rgba(212,168,67,0.15);
+  padding-top: 20px;
+}
+
+.sign-with {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 0.88rem;
+  color: rgba(245,234,216,0.4);
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.sign-name {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(1.9rem, 5vw, 2.6rem);
+  background: linear-gradient(90deg, var(--gold), var(--rose-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sign-hearts {
+  display: block;
+  margin-top: 8px;
+  color: var(--rose);
+  font-size: 1.2rem;
+  letter-spacing: 6px;
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity:1; }
+  50%      { opacity:0.6; }
+}
+
+/* Botón cerrar */
+.close-btn {
+  position: absolute;
+  top: 14px; right: 14px;
+  background: rgba(212,168,67,0.08);
+  border: 1px solid rgba(212,168,67,0.25);
+  color: var(--gold-dim);
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  z-index: 10;
+}
+.close-btn:hover {
+  background: var(--rose);
+  color: white;
+  border-color: var(--rose);
+}
+
+/* Scrollbar */
+.letter-card::-webkit-scrollbar { width: 3px; }
+.letter-card::-webkit-scrollbar-track { background: transparent; }
+.letter-card::-webkit-scrollbar-thumb { background: rgba(212,168,67,0.25); border-radius: 2px; }
+
+/* ══════════════════════════════════════════
+   SECCIÓN SEPARADORA ENTRE CARTA Y ESFERA
+══════════════════════════════════════════ */
+.section-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin: 40px 0;
+  animation: fadeUp 1.4s 0.6s ease both;
+}
+
+.section-divider p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  color: rgba(212,168,67,0.55);
+  letter-spacing: 0.12em;
+  text-align: center;
+}
+
+.section-line {
+  width: 180px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+}
+
+/* ══════════════════════════════════════════
+   ESFERA 3D — GLOBE DE AMOR
+══════════════════════════════════════════ */
+.globe-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  animation: fadeUp 1.4s 0.8s ease both;
+  width: 100%;
+}
+
+.globe-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  background: linear-gradient(90deg, var(--rose-light), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  filter: drop-shadow(0 0 16px rgba(194,85,110,0.35));
+}
+
+.globe-container {
+  position: relative;
+  width: 340px; height: 340px;
+}
+
+/* Halo de luz detrás */
+.globe-glow {
+  position: absolute;
+  inset: -30px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(194,85,110,0.18) 0%, rgba(212,168,67,0.12) 40%, transparent 70%);
+  animation: glowPulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes glowPulse {
+  0%,100% { transform: scale(1); opacity: 0.8; }
+  50%      { transform: scale(1.06); opacity: 1; }
+}
+
+/* Canvas ocupa todo */
+#globeCanvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.globe-subtitle {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: rgba(245,234,216,0.35);
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+.page-footer {
+  margin-top: 80px;
+  text-align: center;
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 0.88rem;
+  color: rgba(245,234,216,0.22);
+  letter-spacing: 0.1em;
+  animation: fadeUp 1.5s 1s ease both;
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 440px) {
+  .envelope-wrapper { width: 310px; height: 220px; }
+  .env-left  { border-width: 110px 0 110px 155px; }
+  .env-right { border-width: 110px 155px 110px 0; }
+  .env-bottom { border-width: 0 0 124px 310px; }
+  .env-flap   { border-width: 124px 155px 0 155px; }
+  .letter-peek { width: 254px; height: 200px; }
+  .globe-container { width: 270px; height: 270px; }
+  }
+
